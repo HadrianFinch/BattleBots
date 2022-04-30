@@ -1,0 +1,19 @@
+<buildscript>
+<build name="Launcher" default="true">
+    <source>launcher\*.cs</source>
+    <source>build.cs</source>
+
+    <define>LAUNCHERBUILD</define>
+
+    <output>bin\BattleBotsLauncher.exe</output>
+</build>
+
+<build name="Core">
+    <source>scriptcore\*.cs</source>
+    <source>bots\*.cs</source>
+
+    <define>COREBUILD</define>
+
+    <output>bin\BattleBotsCore.exe</output>
+</build>
+</buildscript>
