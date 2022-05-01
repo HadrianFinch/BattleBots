@@ -78,13 +78,26 @@ namespace BattleBots
 
         protected bool Move(Rotation direction, uint distance)
         {
-            if (TrySpendTicks(distance))
+            if (ticksRemaining >= distance)
             {
-                Position destination = Position.PointAtAngle(transform.position, direction, distance);
-                destination = Position.Clamp(
-                    destination,
-                    0, Core.Arena.size,
-                    0, Core.Arena.size);
+                Position destination = null;
+                for (int d = 0; d < distance; d++)
+                {
+                    Position tempDest = Position.PointAtAngle(transform.position, direction, distance);
+                    if (GameObject.GetObjectFromPoint(tempDest) == null)
+                    {
+                        TrySpendTicks(1);
+                        tempDest = Position.Clamp(
+                            tempDest,
+                            0, Arena.size,
+                            0, Arena.size);
+                        destination = tempDest;
+                    }
+                    else
+                    {
+                        break;
+                    }              
+                }
                 
                 transform.position = destination;
                 return true;

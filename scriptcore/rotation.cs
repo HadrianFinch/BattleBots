@@ -13,7 +13,7 @@ namespace BattleBots
         {
             if (value < 0)
             {
-                angle = 360 - value;
+                angle = 360 + value;
             }
             else
             {

@@ -7,12 +7,43 @@ class MyAwesomeBot : Bot
 
     }
 
+    Rotation currentDirection = Rotation.right;
+
+    bool atTen = false;
+    bool rightAlignDone = false;
+
     protected override void Update()
     {
-        Move(Rotation.right, 5);
-        Debug.Log(
-            "New Position: x{0}, y{1}",
-            transform.position.x,
-            transform.position.y);
+        if (!atTen)
+        {
+            Position targetPosition = new Position();
+            targetPosition.x = transform.position.x + (10 - (transform.position.x % 10));
+            targetPosition.y = transform.position.y + (10 - (transform.position.y % 10));
+
+            if (!rightAlignDone)
+            {
+                Debug.Log("Aligning Right");
+                Move(Rotation.right, (uint)(targetPosition.x - transform.position.x));
+                rightAlignDone = true;            
+            }
+            else
+            {
+                Debug.Log("Aligning Up");
+                Move(Rotation.up, (uint)(targetPosition.y - transform.position.y));
+                atTen = true;
+            }
+        }
+        else
+        {
+            Move(currentDirection, 10);
+
+            currentDirection.angle = currentDirection.angle - 90;
+
+            Debug.Log(
+                "New Position: x{0}, y{1}\nHeadding at: {2}",
+                transform.position.x,
+                transform.position.y,
+                currentDirection.angle);
+        }
     }
 }

@@ -25,8 +25,24 @@ namespace BattleBots
         public static Position operator -(Position a, Position b) => new Position(a.x - b.x, a.y - b.y);
         public static Position operator *(Position a, long m) => new Position(a.x * m, a.y * m);
         public static Position operator /(Position a, int m) => new Position(a.x / m, a.y / m);
-        // public static Position operator ==(Position a, Position b) => ((a.x == b.x) && (a.y == b.y));
-        // public static Position operator !=(Position a, Position b) => ((a.x != b.x) || (a.y != b.y));
+        public static bool operator ==(Position a, Position b) => ((a.x == b.x) && (a.y == b.y));
+        public static bool operator !=(Position a, Position b) => ((a.x != b.x) || (a.y != b.y));
+        
+        public override bool Equals(object obj)
+        {
+            Position p = obj as Position;
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            return (x == p.x) && (y == p.y);
+        }
+        
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
         // STATIC
         public static uint Distance(Position p1, Position p2)

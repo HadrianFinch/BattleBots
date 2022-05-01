@@ -5,22 +5,6 @@ using System.Linq;
 
 namespace BattleBots.Core
 {
-    static class Arena
-    {
-        public static readonly long size = 1000;
-        public static readonly uint turnTickAmount = 10;
-        public static readonly uint tickTime = 50;
-
-        public static void UpdateFrame()
-        {
-
-        }
-
-        public static void CreateViewportWindow()
-        {
-
-        }
-    }
     static class Engine
     {
         internal static List<Bot> bots = new List<Bot>();
