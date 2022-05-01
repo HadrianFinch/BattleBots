@@ -23,13 +23,13 @@ class MyAwesomeBot : Bot
             if (!rightAlignDone)
             {
                 Debug.Log("Aligning Right");
-                Move(Rotation.right, (uint)(targetPosition.x - transform.position.x));
+                Move((uint)(targetPosition.x - transform.position.x));
                 rightAlignDone = true;            
             }
             else
             {
                 Debug.Log("Aligning Up");
-                Move(Rotation.up, (uint)(targetPosition.y - transform.position.y));
+                Move((uint)(targetPosition.y - transform.position.y));
                 atTen = true;
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace BattleBots
 {
@@ -76,14 +77,14 @@ namespace BattleBots
             
         }
 
-        protected bool Move(Rotation direction, uint distance)
+        protected bool Move(uint distance)
         {
             if (ticksRemaining >= distance)
             {
                 Position destination = null;
                 for (int d = 0; d < distance; d++)
                 {
-                    Position tempDest = Position.PointAtAngle(transform.position, direction, distance);
+                    Position tempDest = Position.PointAtAngle(transform.position, transform.rotation, distance);
                     if (GameObject.GetObjectFromPoint(tempDest) == null)
                     {
                         TrySpendTicks(1);
@@ -101,6 +102,23 @@ namespace BattleBots
                 
                 transform.position = destination;
                 return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public sealed class ScanResults
+        {
+            List<GameObject> allObjects = new List<GameObject>();
+        }
+
+        protected bool Scan(out ScanResults results)
+        {
+            if (TrySpendTicks(3))
+            {
+                
             }
             else
             {
