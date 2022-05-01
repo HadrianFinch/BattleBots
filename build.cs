@@ -355,7 +355,7 @@ namespace Build
 
         public static string GenerateBuildCommand(List<string> sourceFiles, List<string> defines, string outputFile)
         {
-            string buildstring = "csc.exe -nologo ";
+            string buildstring = "csc.exe -nologo -debug:portable ";
             
             foreach (string file in sourceFiles)
             {

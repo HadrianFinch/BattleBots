@@ -17,14 +17,15 @@ namespace BattleBots.Launcher
         {
             return battleBotsFolder + "data\\buildinfo";
         } set {}}
+        static ulong launcherInfo;
 
         #if LAUNCHERBUILD
-        private static void Main()
+        private static void Main(string[] param)
         {
             battleBotsFolder = Assembly.GetEntryAssembly().Location; 
             battleBotsFolder = battleBotsFolder.Substring(0, battleBotsFolder.Length - 26);
 
-            ulong launcherInfo = LoadLauncherInfo();
+            launcherInfo = LoadLauncherInfo();
             if (launcherInfo == 0)
             {
                 Console.WriteLine("An error occured while trying to load the file {0}. Please make sure it exists. If not create a empty file with no extension and realunch the launcher.", buildInfoPath);
@@ -36,6 +37,13 @@ namespace BattleBots.Launcher
             }
 
             bool exit = false;
+
+            if (param[0] == "-build")
+            {
+                Build();
+                exit = true;
+            }
+
             while (!exit)
             {
                 Console.Write(">");
@@ -45,15 +53,28 @@ namespace BattleBots.Launcher
                 {
                     case "build":
                     {
-                        bool ret = Compiler.CompileScriptcore();
-                        launcherInfo++;
-                        SaveLauncherInfo(launcherInfo);
+                        Build();
                     }
                     break;
+
+                    // case "play":
+                    // {
+                    //     bool ret = Compiler.CompileScriptcore();
+                    //     launcherInfo++;
+                    //     SaveLauncherInfo(launcherInfo);
+                    // }
+                    // break;
                 }
             }
         }
         #endif
+
+        private static void Build()
+        {
+            bool ret = Compiler.CompileScriptcore();
+            launcherInfo++;
+            SaveLauncherInfo(launcherInfo);
+        }
 
         private static ulong LoadLauncherInfo()
         {

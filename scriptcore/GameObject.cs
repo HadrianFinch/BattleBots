@@ -10,7 +10,7 @@ namespace BattleBots
 
     public class Transform
     {
-        Position position = new Position();
-        
+        public Position position {get; internal set;} = new Position();
+        public Rotation rotation {get; internal set;} = new Rotation();
     }
 }
